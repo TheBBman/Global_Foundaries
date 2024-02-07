@@ -1,0 +1,16 @@
+TL1 0100
+/ Mask definition file pn_junction.tl1, for use with pn_junction.
+/
+1e3
+   0 10000
+3
+NWell 2
+0 2000 
+3000 10000
+PContact 2
+0 7000 
+8000 10000
+Contacts 3
+0 2000
+3000 7000
+8000 10000
