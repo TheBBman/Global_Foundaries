@@ -101,5 +101,5 @@ ELECTRIC X=15 THRESHOLD NMOS V="0 3 0.05"
 ELECTRIC x=44
 
 $ Save structure
-
+savefile out.f=master.output
 savefile out.f=master.tif tif
