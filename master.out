@@ -1,0 +1,248 @@
+
+
+
+
+         **************************************************************
+         ***                     TSUPREM-4 (TM)                     ***
+         ***      Version G-2012.06-0, System K (AMD64: Linux)      ***
+         ***                Copyright (C) 1988-2011                 ***
+         ***                     Synopsys, Inc.                     ***
+         ***                                                        ***
+         ***  This software and the associated documentation are    ***
+         ***  confidential and proprietary to Synopsys, Inc.  Your  ***
+         ***  use or disclosure of this software is subject to the  ***
+         ***  terms and conditions of a written license agreement   ***
+         ***  between you, or your company, and Synopsys, Inc.      ***
+         ***                                                        ***
+         ***                Compiled: April 30, 2012                ***
+         ***       TSUPREM-4 is a trademark of Synopsys, Inc.       ***
+         **************************************************************
+
+                              10-Feb-2024 18:01:53
+
+
+
+ Entering source file master.inp.
+
+$ PMOS + NMOS + BJT
+
+$ Define the grid
+MESH       GRID.FAC=0.2
+
+$ Read the mask definition file
+MASK       IN.FILE=master.tl1 
+
+Comments from mask data file "master.tl1":
+/ Mask definition file s4ex4m.tl1, for use with s4ex4[abc].
+(End of comments from mask data file)
+
+$ Initialize the structure
+INITIALIZE <100>  BORON=1E14
+** Automatic X grid generation:  lines based on mask edges.
+** Automatic Y grid generation.
+   734 lines in the x direction.
+   160 lines in the y direction.
+
+$ N-well
+
+DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
+EXPOSE     MASK=Nwell
+DEVELOP
+
+IMPLANT    Arsenic      DOSE=6E11  ENERGY=70  
+
+*** Warning:  Because the PD.FERMI model is selected, the effect of the damage
+              caused by this implant on subsequent diffusions will be ignored.
+
+ETCH       PHOTORESIST  ALL
+DIFFUSION  TIME=30  TEMP=1300         
+
+$ Gate oxidation
+
+DIFFUSION  TIME=15  TEMP=1000  DRY HCL=5
+DEPOSIT    PHOTORESIST  POSITIVE  THICKNESS=1
+EXPOSE     MASK=Gate
+DEVELOP
+ETCH       OXIDE        TRAP  THICKNESS=1.5 UNDERCUT=0.1
+ETCH       PHOTORESIST  ALL
+
+$ BJT Base p doping
+
+DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
+EXPOSE     MASK=pdopingbjt
+DEVELOP
+
+IMPLANT    Boron  DOSE=6E12  ENERGY=70
+
+*** Warning:  Because the PD.FERMI model is selected, the effect of the damage
+              caused by this implant on subsequent diffusions will be ignored.
+
+ETCH       PHOTORESIST  ALL
+
+$ BJT emitter n doping
+
+DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
+EXPOSE     MASK=ndopingbjt
+DEVELOP
+
+IMPLANT    Arsenic  DOSE=6E13  ENERGY=250
+
+*** Warning:  Because the PD.FERMI model is selected, the effect of the damage
+              caused by this implant on subsequent diffusions will be ignored.
+
+ETCH       PHOTORESIST  ALL
+DIFFUSION  TIME=30  TEMP=1100
+
+$ N-MOS ndoping
+
+DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
+EXPOSE     MASK=ndopingmos
+DEVELOP
+
+IMPLANT    Arsenic DOSE=1E15  ENERGY=15
+
+*** Warning:  Because the PD.FERMI model is selected, the effect of the damage
+              caused by this implant on subsequent diffusions will be ignored.
+
+ETCH       PHOTORESIST  ALL
+
+$ Resistor doping
+
+DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
+EXPOSE     MASK=ndopingres
+DEVELOP
+
+IMPLANT    Arsenic DOSE=2E15  ENERGY=150
+
+*** Warning:  Because the PD.FERMI model is selected, the effect of the damage
+              caused by this implant on subsequent diffusions will be ignored.
+
+ETCH       PHOTORESIST  ALL
+DIFFUSION  TIME=10  TEMP=1000
+
+$ P-MOS pdoping
+
+DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
+EXPOSE     MASK=pdopingmos
+DEVELOP
+
+IMPLANT    Boron  DOSE=5E13  ENERGY=15
+
+*** Warning:  Because the PD.FERMI model is selected, the effect of the damage
+              caused by this implant on subsequent diffusions will be ignored.
+
+ETCH       PHOTORESIST  ALL
+DIFFUSION  TIME=10  TEMP=900
+
+$ Poly (gate contact)
+
+DEPOSIT MAT=POLY THICKNESS=0.3
+DEPOSIT PHOTORESIST POSITIVE THICKNESS=1.0
+EXPOSE MASK=poly
+DEVELOP
+ETCH POLYSILICON TRAP THICK=2
+ETCH PHOTORESIST ALL
+
+$ Metal Contacts
+
+DEPOSIT ALUMINUM THICKNESS=0.5
+DEPOSIT PHOTORESISTPOSITIVE THICKNESS=1.0
+EXPOSE MASK=Contact
+DEVELOP
+ETCH ALUMINUM TRAP THICKNESS=1.5
+ETCH PHOTORESIST ALL
+
+ELECTRIC X=5 THRESHOLD PMOS V="-3 0 0.05"
+
+
+************************ STRUCTURE INFORMATION ************************
+LAYER    MATERIAL THICKNESS REGION DIFTYP THICKNESS       TOP    BOTTOM
+
+    3 polysilicon    0.3000      1           0.3000   -0.3151   -0.0151
+    2       oxide    0.0253                  0.0253   -0.0151    0.0103
+    1     silicon  199.9897      2      n    1.8542    0.0103    1.8645
+                                 1      p  198.0835    1.9165  200.0000
+
+***********************************************************************
+*** The bulk region will be set to #2
+*** This is an enhancement PMOSFET.
+
+Threshold (volts) :  -0.728
+
+Extrapolated from :
+ bias=-1.050  conductance=9.5268e-06  
+ bias=-1.000  conductance=8.0492e-06  
+
+
+ELECTRIC X=15 THRESHOLD NMOS V="0 3 0.05"
+
+
+************************ STRUCTURE INFORMATION ************************
+LAYER    MATERIAL THICKNESS REGION DIFTYP THICKNESS       TOP    BOTTOM
+
+    3 polysilicon    0.3000      1           0.3000   -0.3151   -0.0151
+    2       oxide    0.0253                  0.0253   -0.0151    0.0103
+    1     silicon  199.9897      1      p  199.9897    0.0103  200.0000
+
+***********************************************************************
+*** The bulk region will be set to #1
+*** This is an enhancement NMOSFET.
+
+Threshold (volts) :   0.711
+
+Extrapolated from :
+ bias=1.150   conductance=4.8157e-05  
+ bias=1.200   conductance=5.3636e-05  
+
+
+ELECTRIC x=44
+
+
+************************ STRUCTURE INFORMATION ************************
+LAYER    MATERIAL THICKNESS REGION DIFTYP THICKNESS       TOP    BOTTOM
+
+    1     silicon  199.9897      2      n    1.1869    0.0103    1.1971
+                                 1      p  198.7850    1.2150  200.0000
+
+***********************************************************************
+
+
+ Bias step   1:    0.00 (Volts)
+
+     ********************************************************************
+       Material    Thickness   Type   Junction Depth   Sheet Resistance  
+     --------------------------------------------------------------------
+
+        silicon       200 um     N           1.19 um        49   ohm/sq
+                                 P            200 um      6.42 K ohm/sq
+
+     ********************************************************************
+
+$ Save structure
+
+savefile out.f=master.tif tif
+
+Electrode    Material     X-min        X-max        Y-min        Y-max
+   Name        Name     (microns)    (microns)    (microns)    (microns)
+----------  ----------  ---------    ---------    ---------    ---------
+3           aluminum       3.6000       4.4000      -0.6222       0.0103
+4           aluminum      13.6000      14.4000      -0.6222       0.0103
+5           aluminum       5.6000       6.4000      -0.6222       0.0103
+6           aluminum      47.0000      48.5000      -0.4897       0.0103
+7           aluminum      41.5000      43.0000      -0.4897       0.0103
+8           aluminum      36.5000      37.5000      -0.4897       0.0103
+9           aluminum      33.5000      34.5000      -0.4897       0.0103
+10          aluminum      26.4000      27.0000      -0.4897       0.0103
+11          aluminum      24.1000      25.1000      -0.4897       0.0103
+12          aluminum      21.6000      22.3000      -0.4897       0.0103
+13          aluminum      15.6000      16.4000      -0.6222       0.0103
+14          aluminum      53.7000      54.3000      -0.5151      -0.0151
+15          aluminum      55.2000      55.8000      -0.4897       0.0103
+
+
+ Exiting source file master.inp.
+
+
+
+ *** END TSUPREM-4 ***
+
