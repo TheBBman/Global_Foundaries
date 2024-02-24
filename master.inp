@@ -1,13 +1,13 @@
 $ PMOS + NMOS + BJT
 
 $ Define the grid
-MESH       GRID.FAC=0.2
+MESH       GRID.FAC=0.25
 
 $ Read the mask definition file
 MASK       IN.FILE=master.tl1 
 
 $ Initialize the structure
-INITIALIZE <100>  BORON=1E14
+INITIALIZE <100>  BORON=5E14
 
 $ N-well
 
@@ -16,16 +16,20 @@ EXPOSE     MASK=Nwell
 DEVELOP
 
 IMPLANT    Arsenic      DOSE=6E11  ENERGY=70  
-ETCH       PHOTORESIST  ALL
-DIFFUSION  TIME=30  TEMP=1300         
+ETCH       PHOTORESIST  ALL    
+$ TIME=10 TEMP=1310 // TIME=65 TEMP=1200              <-------- Two different settings
+DIFFUSION  TIME=10 TEMP=1310            
+$ ^^                                                  <-------- Transistor anneal temp 
 
 $ Gate oxidation
 
-DIFFUSION  TIME=15  TEMP=1000  DRY HCL=5
+DIFFUSION  TIME=30  TEMP=1240  DRY HCL=5    
+$ ^^                                                  <-------- Oxide thickness, adjust temp until desired thickness achieved
+
 DEPOSIT    PHOTORESIST  POSITIVE  THICKNESS=1
 EXPOSE     MASK=Gate
 DEVELOP
-ETCH       OXIDE        TRAP  THICKNESS=1.5 UNDERCUT=0.1
+ETCH       OXIDE        TRAP  THICKNESS=5 UNDERCUT=0.1
 ETCH       PHOTORESIST  ALL
 
 $ BJT Base p doping
@@ -53,7 +57,8 @@ DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
 EXPOSE     MASK=ndopingmos
 DEVELOP
 
-IMPLANT    Arsenic DOSE=1E15  ENERGY=15
+IMPLANT    Arsenic DOSE=1E15  ENERGY=15     
+$ ^^                                                  <-------- Transistor source/drain implant
 ETCH       PHOTORESIST  ALL
 
 $ Resistor doping
@@ -64,7 +69,8 @@ DEVELOP
 
 IMPLANT    Arsenic DOSE=2E15  ENERGY=150
 ETCH       PHOTORESIST  ALL
-DIFFUSION  TIME=10  TEMP=1000
+DIFFUSION  TIME=10  TEMP=1000              
+$ ^^                                                  <-------- Transistor anneal temp  
 
 $ P-MOS pdoping
 
@@ -72,9 +78,11 @@ DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
 EXPOSE     MASK=pdopingmos
 DEVELOP
 
-IMPLANT    Boron  DOSE=5E13  ENERGY=15
+IMPLANT    Boron  DOSE=5E13  ENERGY=15     
+$ ^^                                                  <-------- Transistor source/drain implant
 ETCH       PHOTORESIST  ALL
-DIFFUSION  TIME=10  TEMP=900
+DIFFUSION  TIME=10  TEMP=900               
+$ ^^                                                  <-------- Transistor anneal temp                                                 
 
 $ Poly (gate contact)
 
