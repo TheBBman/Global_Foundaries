@@ -1,7 +1,7 @@
 $ Global Foundries Project 1
 
 $ Define the grid
-MESH       GRID.FAC=0.5
+MESH       GRID.FAC=0.25
 
 $ Read the mask definition file
 MASK       IN.FILE=master.tl1 
