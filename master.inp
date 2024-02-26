@@ -1,13 +1,13 @@
-$ PMOS + NMOS + BJT
+$ Global Foundries Project 1
 
 $ Define the grid
-MESH       GRID.FAC=0.25
+MESH       GRID.FAC=0.5
 
 $ Read the mask definition file
 MASK       IN.FILE=master.tl1 
 
 $ Initialize the structure
-INITIALIZE <100>  BORON=4E14
+INITIALIZE <100>  BORON=1E13
 
 $ N-well
 
@@ -15,10 +15,19 @@ DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=2
 EXPOSE     MASK=Nwell
 DEVELOP
 
-IMPLANT    Arsenic      DOSE=6E11  ENERGY=70  
+IMPLANT    Arsenic      DOSE=3E11  ENERGY=70  
 ETCH       PHOTORESIST  ALL    
-DIFFUSION  TIME=5 TEMP=1300            
+DIFFUSION  TIME=25 TEMP=1300          
 $ ^^                                                  <-------- Transistor anneal temp 
+
+$ P-well
+
+DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=2
+EXPOSE     MASK=Pwell
+DEVELOP
+
+IMPLANT    BORON      DOSE=1.5E11  ENERGY=15  
+ETCH       PHOTORESIST  ALL    
 
 $ Gate oxidation
 
@@ -77,7 +86,7 @@ DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
 EXPOSE     MASK=pdopingmos
 DEVELOP
 
-IMPLANT    Boron  DOSE=5E13  ENERGY=15     
+IMPLANT    Boron  DOSE=1E14  ENERGY=15     
 $ ^^                                                  <-------- Transistor source/drain implant
 ETCH       PHOTORESIST  ALL
 DIFFUSION  TIME=10  TEMP=900               
