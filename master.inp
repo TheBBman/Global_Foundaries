@@ -1,29 +1,29 @@
 $ PMOS + NMOS + BJT
 
 $ Define the grid
-MESH       GRID.FAC=0.25
+MESH       GRID.FAC=0.5
 
 $ Read the mask definition file
 MASK       IN.FILE=master.tl1 
 
 $ Initialize the structure
-INITIALIZE <100>  BORON=5E14
+INITIALIZE <100>  BORON=1E17
 
 $ N-well
 
-DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
+DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=2
 EXPOSE     MASK=Nwell
 DEVELOP
 
-IMPLANT    Arsenic      DOSE=6E11  ENERGY=70  
+IMPLANT    Arsenic      DOSE=1E14  ENERGY=70  
 ETCH       PHOTORESIST  ALL    
 $ TIME=10 TEMP=1310 // TIME=65 TEMP=1200              <-------- Two different settings
-DIFFUSION  TIME=10 TEMP=1310            
+DIFFUSION  TIME=30 TEMP=1300            
 $ ^^                                                  <-------- Transistor anneal temp 
 
 $ Gate oxidation
 
-DIFFUSION  TIME=30  TEMP=1240  DRY HCL=5    
+DIFFUSION  TIME=15  TEMP=1000  DRY HCL=5    
 $ ^^                                                  <-------- Oxide thickness, adjust temp until desired thickness achieved
 
 DEPOSIT    PHOTORESIST  POSITIVE  THICKNESS=1
