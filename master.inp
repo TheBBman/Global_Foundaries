@@ -15,9 +15,9 @@ DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=2
 EXPOSE     MASK=Nwell
 DEVELOP
 
-IMPLANT    Arsenic      DOSE=3E11  ENERGY=70  
+IMPLANT    Arsenic      DOSE=3E11  ENERGY=50  
 ETCH       PHOTORESIST  ALL    
-DIFFUSION  TIME=25 TEMP=1300          
+DIFFUSION  TIME=5 TEMP=1400          
 $ ^^                                                  <-------- Transistor anneal temp 
 
 $ P-well
