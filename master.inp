@@ -59,23 +59,14 @@ IMPLANT    Arsenic  DOSE=6E13  ENERGY=250
 ETCH       PHOTORESIST  ALL
 DIFFUSION  TIME=30  TEMP=1100
 
-$ N-MOS ndoping
+$ N-MOS + Resistor ndoping
 
 DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
 EXPOSE     MASK=ndopingmos
 DEVELOP
 
-IMPLANT    Arsenic DOSE=1E15  ENERGY=15     
+IMPLANT    Arsenic DOSE=2E15  ENERGY=150     
 $ ^^                                                  <-------- Transistor source/drain implant
-ETCH       PHOTORESIST  ALL
-
-$ Resistor doping
-
-DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
-EXPOSE     MASK=ndopingres
-DEVELOP
-
-IMPLANT    Arsenic DOSE=2E15  ENERGY=150
 ETCH       PHOTORESIST  ALL
 DIFFUSION  TIME=10  TEMP=1000              
 $ ^^                                                  <-------- Transistor anneal temp  

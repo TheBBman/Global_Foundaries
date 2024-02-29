@@ -18,7 +18,7 @@
          ***       TSUPREM-4 is a trademark of Synopsys, Inc.       ***
          **************************************************************
 
-                              27-Feb-2024 21:19:52
+                              28-Feb-2024 18:36:14
 
 
 
@@ -109,31 +109,18 @@ IMPLANT    Arsenic  DOSE=6E13  ENERGY=250
 ETCH       PHOTORESIST  ALL
 DIFFUSION  TIME=30  TEMP=1100
 
-$ N-MOS ndoping
+$ N-MOS + Resistor ndoping
 
 DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
 EXPOSE     MASK=ndopingmos
 DEVELOP
 
-IMPLANT    Arsenic DOSE=1E15  ENERGY=15     
+IMPLANT    Arsenic DOSE=2E15  ENERGY=150     
 
 *** Warning:  Because the PD.FERMI model is selected, the effect of the damage
               caused by this implant on subsequent diffusions will be ignored.
 
 $ ^^                                                  <-------- Transistor source/drain implant
-ETCH       PHOTORESIST  ALL
-
-$ Resistor doping
-
-DEPOSIT    PHOTORESIST  NEGATIVE  THICKNESS=1
-EXPOSE     MASK=ndopingres
-DEVELOP
-
-IMPLANT    Arsenic DOSE=2E15  ENERGY=150
-
-*** Warning:  Because the PD.FERMI model is selected, the effect of the damage
-              caused by this implant on subsequent diffusions will be ignored.
-
 ETCH       PHOTORESIST  ALL
 DIFFUSION  TIME=10  TEMP=1000              
 $ ^^                                                  <-------- Transistor anneal temp  
@@ -208,11 +195,11 @@ LAYER    MATERIAL THICKNESS REGION DIFTYP THICKNESS       TOP    BOTTOM
 *** The bulk region will be set to #1
 *** This is an enhancement NMOSFET.
 
-Threshold (volts) :   1.014
+Threshold (volts) :   1.015
 
 Extrapolated from :
- bias=1.900   conductance=1.3768e-05  
- bias=1.950   conductance=1.4545e-05  
+ bias=1.900   conductance=1.3783e-05  
+ bias=1.950   conductance=1.4561e-05  
 
 
 ELECTRIC x=44
