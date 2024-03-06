@@ -38,4 +38,4 @@ METHOD    ICCG DAMPED
 SOLVE     
 REGRID    POTEN RATIO=.2 MAX=1 SMOOTH=1 IN.FILE=nmos_doping OUT.FILE=nmos_doping
 
-SAVE OUT.FILE=nmos_doping.TIF all TIF
+SAVE OUT.FILE=nmos.tif all TIF
