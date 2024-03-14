@@ -34,7 +34,8 @@ REGRID    POTEN RATIO=.2 MAX=1 SMOOTH=1 IN.FILE=pmos_doping OUT.FILE=pmos_doping
 
 SYMB      CARRIERS=2
 
-
+SOLVE     V(Substrate)=0 V(Source)=0 V(Drain)=-0.1 V(Gate)=0.5 ELEC=Gate VSTEP=-0.05 NSTEP=40
+PLOT.1D   X.AXIS=V(Gate) Y.AXIS=I(Drain) TITLE="Id v.s. Vgs" OUT.FILE="IV_curve.txt"
 
 SAVE OUT.FILE=pmos.tif TIF
 
