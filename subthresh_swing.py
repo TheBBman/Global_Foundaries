@@ -3,6 +3,7 @@ import numpy as np
 
 # Find subthreshold swing given low Vd
 
+
 with open("1.8um_Data/nmos_data/nmos_1a_low.txt", 'r') as file:
     lines = [line.rstrip() for line in file][6:]
 
