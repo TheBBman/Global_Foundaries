@@ -44,5 +44,6 @@ SYMB      CARRIERS=2
 
 SOLVE     V(Substrate)=0 V(Source)=0 V(Drain)=-0.86 V(Gate)=0.1 ELEC=Gate VSTEP=-0.02 NSTEP=48
 PLOT.1D   X.AXIS=V(Gate) Y.AXIS=I(Drain) TITLE="Id v.s. Vgs" OUT.FILE="IV_curve.txt"
+PLOT.1D   DOPING X.COORD=0.1 OUT.FILE="pmos_medici_channel.txt"
 
 SAVE OUT.FILE=pmos.tif all TIF

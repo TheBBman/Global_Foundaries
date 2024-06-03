@@ -78,5 +78,5 @@ ETCH       PHOTORESIST  ALL
 
 $ Save structure
 savefile out.f=fabrication.tif tif
-$SELECT Z=BORON
-$PRINT.1D X.value=0.1 OUT.FILE=pmos_channel_doping.txt
+SELECT Z=Doping
+PRINT.1D X.value=0.1 OUT.FILE=nmos_channel_doping.txt
